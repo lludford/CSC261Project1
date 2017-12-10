@@ -1,25 +1,27 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Project 1 Part 3 </title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+<link rel = "stylesheet" type = "text/css" href = "form.css" />
 </head>
-
 <body>
-	<h1> Welcome to Room Reservation System 2.61 </h1>
-	<table>
-	<tr>
-		<td>Student ID:</td>
-		<td> <input id="student_id"></td>
-	</tr>
-	<tr>
-		<td>Password:</td>
-		<td> <input id="password"></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td><button id="login"> Login</button></td>
-	</tr>
-	</table>
+<h1> Welcome to Room Reservation System 2.61 </h1>
+	<form>
+	  <div class="form-group">
+	    <label for="username">Username</label>
+	    <input type="username" class="form-control" id="username" aria-describedby="usernamehelp" placeholder="Enter Username">
+	    
+	  </div>
+	  <div class="form-group">
+	    <label for="password">Password</label>
+	    <input type="password" class="form-control" id="password" placeholder="Password">
+	  </div>
+	  
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 </body>
-
 </html>

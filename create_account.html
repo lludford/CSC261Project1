@@ -1,26 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+	<link rel = "stylesheet" type = "text/css" href = "form.css" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+	function validateForm() {
+	    var x = document.forms["new_account"]["fname"].value;
+	    if (x == "") {
+	        alert("Name must be filled out");
+	        return false;
+	    }
+    }
+    function validateUsername(){
+    	//check if username is blank or if username already exists
+    	//alert("username is, " + username);
+    	var x = $('#username');
+    	x.val(x.val().toUpperCase());
+    	console.log("helop");
+    }
+    function passwordsMatch(){
+    	var pw = $('password');
+    	var pwc = $('password_confirmation');
+    	if (pw.val() !== pwc.val()){
+
+    	}
+    }
+    function myFunction() {
+	    var x = document.getElementById("username");
+	    x.value = x.value.toUpperCase();
+	}
+ </script>
+
+
 <h1> Create an Account </h1>
-<table>
-<tr>
-	<td> Username: </td>
-	<td><input id="username"/></td>
+<form>
+	<div class="form-row">
+  	<div class="form-group col-md-6">
+      <label for="firstname">First Name</label>
+      <input type="firstname" class="form-control" id="firstname" placeholder="First Name">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname">Last Name</label>
+      <input type="lastname" class="form-control" id="lastname" placeholder="Last Name">
+    </div>
+</div>
+  <div class="form-row">
+  	<div class="form-group col-md-6">
+      <label for="username">Username</label>
+      <input type="username" class="form-control" id="username" placeholder="Username">
+    </div>
+    
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email">
+    </div>
+     <div class="form-group col-md-4">
+    <label for="class_year">Class Year</label>
+      <select id="class_year" class="form-control">
+        <option selected>Choose...</option>
+        <option value="1">Freshman</option>
+        <option value="2">Sophomore</option>
+        <option value="3">Junior</option>
+        <option value="4">Senior</option>
+        <option value="5">Graduate Student</option>
+        <option value="6">Take 5</option>
+      </select>
+  </div>
+</div>
+ <div class="form-row">
+    
+    <div class="form-group col-md-4">
+    <label for="dptmt">Department</label>
+      <select id="dptmt" class="form-control">
+        <option selected>Choose...</option>
+        <option value="csc">Computer Science</option>
+        <option value="bcs">Brain and Cognitive Sciences</option>
+        <option value="psy">Psychology</option>
+        <option value="che">Chemical Engineering</option>
+        <option value="opt">Optics/Optical Engineering</option>
+        <option value="his">History</option>
+        <option value="mus">Music</option>
+        <option value="ds">Data Science</option>
+        <option value="me">Mechanical Engineering</option>
+        <option value="eng">English</option>
+        <option value="spa">Spanish</option>
+        <option value="vsa">Visual Arts</option>
+        <option value="bio">Biology</option>
+        <option value="bme">Biomedical Engineering</option>
+        <option value="phi">Philosophy</option>
 
-</tr>
-<tr>
-	<td> Password: </td>
-	<td><input id="password"/></td>
-</tr>
-<tr>
-	<td> Confirm Password: </td>
-	<td><input id="password_confirmation"/></td>
-</tr>
-<tr>
-	<td></td>
-	<td> <button> Create Account </button></td>
-</tr>
-</table>
+      </select>
+  </div>
+</div>
+  
 
-</head>
-</html>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+</div>
+
+
+<br>
+ 
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
