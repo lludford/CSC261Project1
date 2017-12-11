@@ -1,8 +1,10 @@
+drop table if exists Reservation;
 drop table if exists Student;
 drop table if exists Employee;
 drop table if exists User;
-drop table if exists Reservation;
+
 drop table if exists Room;
+
 
 
 create TABLE User
