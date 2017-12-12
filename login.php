@@ -1,6 +1,7 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <?php
     require_once('db_setup.php');
-    $sql = "USE lyang29;";
+    $sql = "USE lludford;";
     if ($conn->query($sql) === TRUE) {
        // echo "using Database lyang29_users";
     } else {
@@ -29,7 +30,10 @@
     }
         else
         {
-            echo "Your username or password is invalid";
+            ?>
+            <div class="alert alert-danger " ><strong> Uh oh!</strong> Username or Password is incorrect</div>
+            <?php
+            
         }
     }
 
@@ -86,7 +90,7 @@
 
             <form action="" method="post">
                 <input type="text" name="username" placeholder="Username"><br>
-                <input type="text" name="password" placeholder="Password"><br>
+                <input type="password" name="password" placeholder="Password"><br>
                 <input type="submit" class="btn btn-outline-white wow fadeInDown" value="Log in"><br>
             </form>
 
