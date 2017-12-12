@@ -150,8 +150,8 @@ $start_time BETWEEN StartTime AND EndTime;";
 			
 				  	
 		}else{
-			echo "Good";
-			echo $start_time;
+			
+			
 			$sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
 			$result = $conn->query($sql);
 			header("location: confirmation.html");
@@ -159,7 +159,12 @@ $start_time BETWEEN StartTime AND EndTime;";
 		$conn->close();
 }
 else{
-	echo "Invalid Username";
+	?> 
+	<div class="col-10">
+	<div class="alert alert-danger" role="alert" >
+		<strong> Oh no! </strong>You inputted an invalid username.
+		</div>
+		</div><?php
 }
 }
 ?>
