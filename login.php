@@ -90,7 +90,7 @@
                 <input type="submit" class="btn btn-outline-white wow fadeInDown" value="Log in"><br>
             </form>
 
-            <td>Don't have an account? <a href="create_account.html">Sign up</a>    
+            <td>Don't have an account? <a href="create_account.php">Sign up</a>    
         </section>
         
     </div>
