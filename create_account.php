@@ -84,9 +84,11 @@ $(document).ready(function () {
   $type = $_REQUEST['type_radio'];
   $email = $_REQUEST['email'];
   $pw = $_REQUEST['password'];
+  $dptmt = $_REQUEST['dptmt'];
   $year = $_REQUEST['class_year'];
   require_once('db_setup.php');
   $sql = "USE lludford;";
+
   if ($conn->query($sql) === TRUE) {
      // echo "using Database tbiswas2_company";
   } else {
@@ -112,15 +114,17 @@ $(document).ready(function () {
       $result = $conn->query($sql);
       echo strcmp($type, 'student');
       echo '\n'.$type.'--';
+      $name = $firstname.' '.$lastname;
       if (strcmp($type, 'student')==0){
         
-        $name = $firstname.' '.$lastname;
+        
         echo $name;
         $sql = "INSERT INTO Student (StudentID, Name, Email, Year, Major) VALUES ('$username_id', '$name', '$email', '$year', '$dptmt');";
         $result = $conn->query($sql);
       }
       else{
-
+        $sql = "INSERT INTO Employee (EmployeeID, Name, Department, Email) VALUES ('$username_id', '$name', '$dptmt', '$email');";
+        $result = $conn->query($sql);
       }
       header("location: make_reservation.html");
       echo "bye";
