@@ -28,24 +28,7 @@
 		}
 
 	}
-	$(document).ready(function () {
 
-    $('#make_reservation_form').submit(function (e) {
-      if($('#type_radio').val()==='student'){
-          if($('#class_year').val()==0){
-            e.preventDefault();
-        $('#class_year').focus()
-          }
-        }
-        if ($('#dptmt').val()==="0"){
-      console.log("val=0");
-      e.preventDefault();
-      $('#dptmt').focus()
-    };
-    var username = $('#username_id').val();
-
-    });
-});
 </script>
 <style>
  body, html { 
@@ -121,7 +104,7 @@
 	</div>
 	<div class="container bg">
 
-		<section>
+	<section>	
 <h1> Make a Reservation</h1>
 	<form id="make_reservation_form" method="post">
 <div class="form-group row">
@@ -188,10 +171,6 @@
 <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 </div>
-</section>
-</body>
-
-</html>
 <?php 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $username_id = $_REQUEST['username_id'];
@@ -216,6 +195,9 @@ EndTime BETWEEN $start_time AND $end_time OR
 $start_time BETWEEN StartTime AND EndTime;";
 	  $result = $conn->query($sql);
 		if($result->num_rows > 0){
+			?>
+			<div class="alert alert-danger"> There is already a reservation during this time </div>
+			<?php
 			echo "There is already a reservation during this time: ".$date_reformatted;
 			
 				  	
@@ -224,7 +206,8 @@ $start_time BETWEEN StartTime AND EndTime;";
 			
 			$sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
 			$result = $conn->query($sql);
-			header("location: confirmation.html");
+
+			header("location: show_reservations.php");
 		}
 		$conn->close();
 }
@@ -237,4 +220,9 @@ else{
 		</div><?php
 }
 }
-?>
+?></section>
+
+</body>
+
+</html>
+
