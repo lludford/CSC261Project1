@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html>
     <head> 
-    </head>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
-    <body>
-        <h1> Reservations </h1>
 
-        <td><a href="logout.php">Sign out</a>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-        <td><a href="make_reservation.php">Make New Reservations</a>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  
+</head>
+<body>
+
+        <div class = "container">
+<!-- nvarbar -->
+<nav class="navbar navbar-toggleable navbar-light bg-faded">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Your Reservations</a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="#">Room Reservations 2.61</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      
+      <li class="nav-item">
+        <a class="nav-link" href="make_reservation.php">Make a Reservation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="logout.php">Log Out</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+            <!-- nvarbar -->
+        
+
+        
 
         <?php
             require_once('db_setup.php');
-            $sql = "USE lyang29;";
+            $sql = "USE lludford;";
             if ($conn->query($sql) === TRUE) {
             // echo "using Database tbiswas2_company";
             } else {
@@ -47,7 +76,7 @@
         <?php
             while($row = $result->fetch_assoc()){
                 $room_id = $row['RoomID'];
-                echo "$room_id";
+                
         ?>
             <tr>
                 <?php
@@ -79,6 +108,6 @@
         <?php
         $conn->close();
         ?>
-
+</td>
     </body>
 </html>

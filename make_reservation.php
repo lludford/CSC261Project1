@@ -8,6 +8,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   
 <script>
 	function validateDate(){
@@ -44,6 +47,48 @@
     });
 });
 </script>
+<style>
+ body, html { 
+        height: 100%; 
+        margin: 0;
+    }
+    .bg {
+     /* The image used */
+        background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');
+
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+    nav{
+    	background: rgba(255, 255, 255, 0.7);
+    	z-index:99
+    }
+    h1 {
+        letter-spacing: 8px;
+    }
+    .hr{
+        border-top: 3px solid #fff;
+        width: 80px;
+    }
+
+    section {
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) 
+    }
+
 </style>
 </head>
 
@@ -51,9 +96,33 @@
 
 
 
-<!--  -->
+
+
 <div class="container">
-	<h1> Make a Reservation </h1>
+	<nav class="navbar navbar-toggleable navbar-light bg-faded">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Make a Reservation</a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="#">Room Reservations 2.61</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      
+      <li class="nav-item">
+        <a class="nav-link" href="show_reservations.php">View Reservations </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="logout.php">Log Out</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+	</div>
+	<div class="container bg">
+
+		<section>
+<h1> Make a Reservation</h1>
 	<form id="make_reservation_form" method="post">
 <div class="form-group row">
   <label for="username_id" class="col-2 col-form-label">Username</label>
@@ -119,6 +188,7 @@
 <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 </div>
+</section>
 </body>
 
 </html>

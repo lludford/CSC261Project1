@@ -26,7 +26,7 @@
     if($result->num_rows==1)
         {
             $_SESSION['login_user']=$username;
-            header("location: room_reservation.php");
+            header("location: show_reservations.php");
     }
         else
         {
@@ -82,10 +82,12 @@
     </style>
 <head/>
 <body>
+
     <div class="bg">
 
         
         <section>
+            <h1> Room Reservations 2.61 </h1>
             <h1> Log in </h1>
 
             <form action="" method="post">

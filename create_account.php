@@ -203,21 +203,27 @@ $(document).ready(function () {
     <label for="dptmt">Department</label>
       <select required id="dptmt" name="dptmt" class="form-control">
         <option selected value="0">Choose...</option>
-        <option value="bio">Biology</option>
-        <option value="bme">Biomedical Engineering</option>
-        <option value="bcs">Brain and Cognitive Sciences</option>
-        <option value="che">Chemical Engineering</option>
-        <option value="csc">Computer Science</option>
-        <option value="ds">Data Science</option>
-        <option value="eng">English</option>
-        <option value="his">History</option>
-        <option value="me">Mechanical Engineering</option>
-        <option value="mus">Music</option>
-        <option value="opt">Optics/Optical Engineering</option>
-        <option value="phi">Philosophy</option>
-        <option value="psy">Psychology</option>
-        <option value="spa">Spanish</option>
-        <option value="vsa">Visual Arts</option>
+        <option value="ANT">Anthropology</option>
+        <option value="BIO">Biology</option>
+        <option value="BME">Biomedical Engineering</option>
+        <option value="BCS">Brain and Cognitive Sciences</option>
+        <option value="CHE">Chemical Engineering</option>
+        <option value="CHI"> Chinese </option>
+        <option value="CSC">Computer Science</option>
+        <option value="DS">Data Science</option>
+        <option value="ENG">English</option>
+        <option value="HIS">History</option>
+        <option value="ME">Mechanical Engineering</option>
+        <option value="MUS">Music</option>
+        <option value="OPT">Optics/Optical Engineering</option>
+        <option value="PHI">Philosophy</option>
+        <option value="POL">Political Science</option>
+        <option value="PSY">Psychology</option>
+        <option value="PUB">Public Health</option>
+        <option value="SPA">Spanish</option>
+        <option value="VSA">Visual Arts</option>
+        
+
       </select>
   </div>
 </div>
