@@ -126,7 +126,7 @@ $(document).ready(function () {
         $sql = "INSERT INTO Employee (EmployeeID, Name, Department, Email) VALUES ('$username_id', '$name', '$dptmt', '$email');";
         $result = $conn->query($sql);
       }
-      header("location: make_reservation.html");
+      header("location: make_reservation.php");
       echo "bye";
 
     }

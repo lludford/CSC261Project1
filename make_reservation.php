@@ -9,95 +9,68 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   
-  <script>
-  $(document).ready(function() {
-    $("#reservation_date").datepicker();
-  });
-  </script>
-  <style>
+<script>
+	function validateDate(){
+		var today = new Date();//gets today's date
+		
+		
+		inputdate = new Date($('#date').val());
+		console.log("inputdate: " + $('#date').val());
+		console.log("today's date: " + today.toDateString());
+		if (inputdate.toDateString()< today.toDateString()){
+			$('#date').focus();
+			console.log("yep");
+			//alert("Date must be after "+today.toDateString());
 
-  .dropdown {
-	  float: left;
-	  overflow: hidden;
+		}
+
 	}
-	.dropdown-content {
-	  display: none;
-	  position: absolute;
-	  background-color: #f9f9f9;
-	  min-width: 160px;
-	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	  z-index: 1;
-	}
-	.dropdown-content a:hover {
-  background-color: #ddd;
-}
-/* Links inside the dropdown */
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
+	$(document).ready(function () {
 
+    $('#make_reservation_form').submit(function (e) {
+      if($('#type_radio').val()==='student'){
+          if($('#class_year').val()==0){
+            e.preventDefault();
+        $('#class_year').focus()
+          }
+        }
+        if ($('#dptmt').val()==="0"){
+      console.log("val=0");
+      e.preventDefault();
+      $('#dptmt').focus()
+    };
+    var username = $('#username_id').val();
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+    });
+});
+</script>
 </style>
 </head>
 
 <body>
 
-<h1> Make a Reservation: </h1>
-<table>
-	<tr>
-		<td>UserID:</td>
-		<td> <input id="userID"/></td>
-	</tr>
-	<tr>
-		<td>Number of People:</td>
-		<td> <input id="num_people"/></td>
-	</tr>
-	<tr>
-		<td> Room:</td>
-		<td>
-			<select>
-				
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td>Date: </td>
-		<td><input class="reservation_date" id="reservation_date"/></td>
-	</tr>
-<br>
-</table>
-<Button> Make Reservation </Button>
-</body>
-
-</html>
-
-
 
 
 <!--  -->
 <div class="container">
+	<h1> Make a Reservation </h1>
+	<form id="make_reservation_form" method="post">
 <div class="form-group row">
   <label for="username_id" class="col-2 col-form-label">Username</label>
   <div class="col-10">
-    <input class="form-control" type="text" id="username_id" name="username_id">
+    <input required class="form-control" type="text" id="username_id" name="username_id">
   </div>
 </div>
 <div class="form-group row">
-	<label for="class_year" class="col-2 col-form-label"> Room</label>
+	<label for="room_name" class="col-2 col-form-label"> Room</label>
      <div class="col-10" id="class_year_div" >
     
-      <select required id="class_year" name="class_year" class="form-control">
+      <select required id="room_name" name="room_name" class="form-control">
         <option selected value="0"> Choose... </option>
         <?php
+  
+  
+  
         	require_once('db_setup.php');
 			  $sql = "USE lludford;";
 
@@ -121,24 +94,71 @@
       </select>
   </div>
 </div>
+
+
 <div class="form-group row">
-  <label for="example-number-input" class="col-2 col-form-label">Number</label>
+  <label for="date" class="col-2 col-form-label" >Date</label>
   <div class="col-10">
-    <input class="form-control" type="number" value="42" id="example-number-input">
+    <input required class="form-control" type="date" name="date" id="date" >
   </div>
 </div>
 
 <div class="form-group row">
-  <label for="example-date-input" class="col-2 col-form-label">Date</label>
+  <label for="start_time" class="col-2 col-form-label">Start Time</label>
   <div class="col-10">
-    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+    <input required class="form-control" name="start_time" type="time" id="start_time">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="end_time" class="col-2 col-form-label">End Time</label>
+  <div class="col-10">
+    <input required class="form-control" name="end_time" type="time"  id="end_time">
   </div>
 </div>
 
-<div class="form-group row">
-  <label for="example-time-input" class="col-2 col-form-label">Time</label>
-  <div class="col-10">
-    <input class="form-control" type="time" value="13:45:00" id="example-time-input">
-  </div>
+<input type="submit" class="btn btn-primary" value="Submit">
+</form>
 </div>
-</div>
+</body>
+
+</html>
+<?php 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  $username_id = $_REQUEST['username_id'];
+  $room = $_REQUEST['room_name'];
+  $date = $_REQUEST['date'];
+  $start_time = $_REQUEST['start_time'];
+  $end_time = $_REQUEST['end_time'];
+  //$var = "20/04/2012";
+//echo date("Y-m-d", strtotime($var) )
+  $start_time = date("H:i:s", strtotime($start_time));
+  $end_time = date("H:i:s", strtotime($end_time));
+  
+  $date_reformatted = date("Y-m-d", strtotime($date));
+
+ $sql = "SELECT * FROM User WHERE UserID='$username_id';";
+ $result = $conn->query($sql);
+ if ($result->num_rows > 0){
+	  $sql = "SELECT * FROM Reservation WHERE RoomID='$room' AND ReservationDate='$date_reformatted' AND StartTime='$start_time' OR (StartTime < '$end_time' AND StartTime > '$start_time')  OR (EndTime > '$start_time' AND EndTime < '$end_time') OR (StartTime <'$start_time' AND EndTime > '$end_time');"; 
+	  $sql = "SELECT * FROM Reservation WHERE RoomID='$room' AND ReservationDate='$date_reformatted' AND 
+StartTime BETWEEN $start_time AND $end_time OR 
+EndTime BETWEEN $start_time AND $end_time OR
+$start_time BETWEEN StartTime AND EndTime;";
+	  $result = $conn->query($sql);
+		if($result->num_rows > 0){
+			echo "There is already a reservation during this time: ".$date_reformatted;
+			
+				  	
+		}else{
+			echo "Good";
+			echo $start_time;
+			$sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
+			$result = $conn->query($sql);
+		}
+		$conn->close();
+}
+else{
+	echo "Invalid Username";
+}
+}
+?>
