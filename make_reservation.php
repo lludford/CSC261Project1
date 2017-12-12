@@ -154,6 +154,7 @@ $start_time BETWEEN StartTime AND EndTime;";
 			echo $start_time;
 			$sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
 			$result = $conn->query($sql);
+			header("location: confirmation.html");
 		}
 		$conn->close();
 }
