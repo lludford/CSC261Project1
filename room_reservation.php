@@ -16,16 +16,23 @@
         body, html { 
             height: 100%; 
             margin: 0;
-        }
-        .bg {
+
+        
         /* The image used */
             background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');
             height: 100%;
             /* Center and scale the image nicely */
             background-position: center;
-            background-repeat: no-repeat;
+            
             background-attachment: fixed;
             background-size: cover;
+
+     /*       z-index:3;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:97px;
+     position:fixed;*/
         }
         nav{
             background: rgba(255, 255, 255, 0.7);
@@ -54,18 +61,10 @@
         
         </style>
 
-<script>
-    function editReservation(reservationID){
-        <?php 
-            $_SESSION['reservation_id'] = reservationID;
-            
-        ?>
-        
-    }
-</script>
+
 </head>
 <body>
-
+<header></header>
 <div class="bg">
 
 <!-- nvarbar -->
@@ -122,7 +121,7 @@
                         $result = $conn->query($sql_delete);
                 }*/
 	      // Query:
-            $sql = "SELECT * FROM Reservation where UserID = '$user'";
+            $sql = "SELECT * FROM Reservation where UserID = '$user' ORDER BY ReservationDate Desc, StartTime ;";
             $result = $conn->query($sql);
             if($result->num_rows > 0){
         ?>
@@ -158,29 +157,12 @@
                 <td><font color="ffffff"><?php echo $row['EndTime']?></font></td>
                 <td>
                     <form action="edit_reservation.php?" method='post'>
-                        <input type="submit"onclick="editReservation('<?php echo $row['ReservationID'];?>')" name="edit" value="Edit">    
+                        <input type="submit" name="edit" value="Edit">    
                         <input hidden value="<?php echo $row['ReservationID'];?>" name="reservation_id">
                     </form>
                 </td>
                 
-		<?php
-	            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edit'])){
-                    ?> <?php
-                        $_SESSION['reservation_id'] =10;
-                        $_SESSION['reservation_room'] = $room_id;
-                        $_SESSION['reservation_date'] = $row['ReservationDate'];
-                    }
-                    else if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete'])){
-                        $reservation_id = $_REQUEST['reservation_id'];
-
-                        $sql_delete="DELETE FROM Reservation WHERE ReservationID='$reservation_id';";
-
-                        $result = $conn->query($sql_delete);
-                        $conn->close();
-                        header('Location:login.php');
-                        exit;
-                }
-		?>
+		
             </tr>
 
         <?php
@@ -197,7 +179,7 @@
         <?php
         //$conn->close();
         ?>
-</td>
+</td></div>
     </body>
 </html>
 
