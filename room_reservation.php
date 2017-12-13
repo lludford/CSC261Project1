@@ -162,12 +162,7 @@
                         <input hidden value="<?php echo $row['ReservationID'];?>" name="reservation_id">
                     </form>
                 </td>
-                <td>
-                    <form method='post'>
-                        <input type="submit" name="delete" value="Delete">    
-                        <input hidden value= "<?php echo $row['ReservationID'];?>" name="reservation_id">
-                    </form>
-                </td>
+                
 		<?php
 	            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edit'])){
                     ?> <?php

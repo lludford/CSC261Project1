@@ -180,8 +180,7 @@
 <div class="form-group row">
   <label for="start_time" class="col-2 col-form-label">Start Time      </label>
   <div class="col-10">
-    <input required class="form-control" name="start_time" type="time" id="start_time" value="<?php echo isset($_POST['start_time']) ? $_POST['start_time'] : $start_time ?>
-    "><!-- <php echo $start_time;?> -->
+    <input required class="form-control" name="start_time" type="time" id="start_time" value="<?php echo $start_time;?>"><!-- <php echo $start_time;?> -->
   </div>
 </div>
 <div class="form-group row">
@@ -192,7 +191,8 @@
   </div>
 </div>
 
-<input type="submit" class="btn btn-primary" value="Submit">
+<input type="submit" class="btn btn-primary" value="Submit"><br>
+<td>Want to cancel your reservation? <a href="cancel.php?reservation_id=<?php echo $reservation_id?>">Cancel Reservation.</a>   
 <?php 
 
 
