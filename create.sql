@@ -46,11 +46,12 @@ PRIMARY KEY(RoomID));
 
 create TABLE Reservation
 (
+ReservationID int Not Null auto_increment,
 UserID varchar(30) Not Null Default 0,
 RoomID int Not Null Default 0,
 ReservationDate date Not Null Default '0000-00-00',
 StartTime time Default '00:00:00',
 EndTime time Default '00:00:00',
-PRIMARY KEY (UserID, RoomID, ReservationDate),
+PRIMARY KEY (ReservationID),
 Foreign KEY (UserID) References User(UserID) ON Delete Cascade,
 Foreign KEY (RoomID) References Room(RoomID) ON Delete Cascade);

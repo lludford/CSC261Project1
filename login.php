@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <?php
     require_once('db_setup.php');
-    $sql = "USE lyang29;";
+    $sql = "USE lludford;";
     if ($conn->query($sql) === TRUE) {
        // echo "using Database lyang29_users";
     } else {
@@ -77,17 +77,26 @@
     <div class="bg">
 
         
-        <section>
+        <section >
             <h1> Room Reservations 2.61 </h1>
             <h1> Log in </h1>
 
             <form action="" method="post">
+                <div class="form-group">
                 <input type="text" name="username" placeholder="Username"><br>
-                <input type="password" name="password" placeholder="Password"><br>
-                <input type="submit" class="btn btn-outline-white wow fadeInDown" value="Log in"><br>
+            </div>
+            <div class="form-group ">
+                <input type="password"  name="password" placeholder="Password"><br>
+            </div>
+            <div class="form-group ">
+                <input type="submit" class="btn btn-outline-white btn-primary wow fadeInDown" value="Log in"><br>
+                </div>
+
+          
             </form>
 
-            <td>Don't have an account? <a href="create_account.php">Sign up</a>    
+            <td>Don't have an account? <a href="create_account.php">Sign up</a>   
+
         </section>
         
     </div>
