@@ -121,13 +121,19 @@
   
   
         	require_once('db_setup.php');
-			  $sql = "USE lyang29;";
+			  $sql = "USE lludford;";
 
 			  if ($conn->query($sql) === TRUE) {
 			     // echo "using Database tbiswas2_company";
 			  } else {
 			     echo "Error using  database: " . $conn->error;
 			  }
+        session_start();
+            $user = $_SESSION['login_user'];
+            //Check if there is a user logged in
+            if(!isset($_SESSION['login_user'])){
+                header("location:login.php");
+             }
 			  $sql = "SELECT * FROM Room;";
 			  $result = $conn->query($sql);
 			  if($result->num_rows > 0){
@@ -211,7 +217,7 @@ $start_time BETWEEN StartTime AND EndTime;";
 			$sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
 			$result = $conn->query($sql);
 
-			header("location: room_reservations.php");
+			header("location: room_reservation.php");
 		}
 		$conn->close();
 }
