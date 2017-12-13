@@ -167,6 +167,14 @@
                 } else {
                     echo "Error using  database: " . $conn->error;
                 }
+                session_start();
+            $user = $_SESSION['login_user'];
+            //Check if there is a user logged in
+            if(isset($_SESSION['login_user'])){//if they are logged in, take them back to room reservation page
+                header("location:login.php");
+             }else{
+                header("location:room_reservation.php");
+         }
             ?>
 
 
@@ -183,21 +191,20 @@
                         if($result->num_rows > 0){
                     ?>
 
-                <div class="form-group col-md-6">
+                <div class="form-group ">
                 
-                    <div class="alert alert-danger" role="alert"> <strong> Oh no! </strong>This username is already taken.<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span></div></div>
+                    <div class="form-control alert alert-danger" role="alert"> <strong> Oh no! </strong>This username is already taken.<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span></div></div>
                     
                     <?php
                         }else {
                         $sql = "INSERT INTO User (UserID, Password) VALUES ('$username_id', '$pw');";
                         $result = $conn->query($sql);
-                        echo strcmp($type, 'student');
-                        echo '\n'.$type.'--';
+                        
                         $name = $firstname.' '.$lastname;
                         if (strcmp($type, 'student')==0){
                             
                             
-                            echo $name;
+                            
                             $sql = "INSERT INTO Student (StudentID, Name, Email, Year, Major) VALUES ('$username_id', '$name', '$email', '$year', '$dptmt');";
                             $result = $conn->query($sql);
                         }
@@ -205,11 +212,13 @@
                             $sql = "INSERT INTO Employee (EmployeeID, Name, Department, Email) VALUES ('$username_id', '$name', '$dptmt', '$email');";
                             $result = $conn->query($sql);
                         }
-                        header("location: make_reservation.php");
-                        echo "bye";
+                        $conn->close();?>
+                        <div class="form-control alert alert-success"><strong> Congrats! </strong> User successfully created! <a href="login.php">Login here!</a></div>
+                        <?php header("location: room_reservation.php");
+                        
 
                         }
-                        $conn->close();
+                        
                         }
                     ?>
 

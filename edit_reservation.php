@@ -235,7 +235,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['start_time'])){
 (StartTime BETWEEN '$start_time' AND '$end_time' OR 
 EndTime BETWEEN '$start_time' AND '$end_time' OR
 '$start_time' BETWEEN StartTime AND EndTime OR StartTime='$start_time' OR EndTime='$end_time');";
-echo $sql;
+
     $result = $conn->query($sql);
     if($result->num_rows > 0){
       ?>
@@ -248,7 +248,7 @@ echo $sql;
       <div class="form-control alert alert-success"><strong> Congrats! </strong> Reservation successfully updated! </div>
       <?php
 $sql="UPDATE Reservation SET RoomID='$room', ReservationDate='$date_reformatted', StartTime='$start_time', EndTime='$end_time' WHERE ReservationID='$reservation_id';";
-      echo $sql;
+      
       $result = $conn->query($sql);
 
 $conn->close();

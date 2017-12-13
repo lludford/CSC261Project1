@@ -202,7 +202,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 (StartTime BETWEEN '$start_time' AND '$end_time' OR 
 EndTime BETWEEN '$start_time' AND '$end_time' OR
 '$start_time' BETWEEN StartTime AND EndTime OR StartTime='$start_time' OR EndTime='$end_time');";
-    echo $sql;
+    
     $result = $conn->query($sql);
     ?>
     <div class="form-group row">
@@ -221,7 +221,7 @@ EndTime BETWEEN '$start_time' AND '$end_time' OR
       ?>
       <div class="form-control alert alert-success"><strong> Congrats! </strong> Reservation successfully created! </div>
       <?php $sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
-      echo "Date is: ".$date;
+      
       $result = $conn->query($sql);
       $conn->close();
       header("location: room_reservation.php");

@@ -31,7 +31,7 @@
             background: rgba(255, 255, 255, 0.7);
             z-index:99
         }
-        h1 {
+        h1,p {
             letter-spacing: 8px;
         }
         .hr{
@@ -186,8 +186,9 @@
         <?php
                 }
             }
-            else {
-            echo "Nothing to display";
+            else {?>
+            <p class="form-control alert alert-warning"> No current reservations to display <strong> <a href="make_reservation.php">Create one here!</a></strong></p>
+            <?php
             }
         ?>
 
