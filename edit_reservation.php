@@ -128,7 +128,7 @@
 			  } else {
 			     echo "Error using  database: " . $conn->error;
 			  }
-        
+
             $user = $_SESSION['login_user'];
             //Check if there is a user logged in
             if(!isset($_SESSION['login_user'])){
@@ -138,7 +138,7 @@
         $result = $conn->query($sql);
         $roomid = 0;
         if($result->num_rows > 0){
-          echo "in if-statement";
+          
           while($row = $result->fetch_assoc()){
             $roomid = $row['RoomID'];
             $start_time = $row['StartTime'];
@@ -165,6 +165,7 @@
 			  }
         ?>
       </select>
+      <input hidden name="reservation_id_" value="<?php echo $reservation_id; ?>">
   </div>
 </div>
 
@@ -179,7 +180,8 @@
 <div class="form-group row">
   <label for="start_time" class="col-2 col-form-label">Start Time      </label>
   <div class="col-10">
-    <input required class="form-control" name="start_time" type="time" id="start_time" value="<?php echo $start_time;?>">
+    <input required class="form-control" name="start_time" type="time" id="start_time" value="<?php echo isset($_POST['start_time']) ? $_POST['start_time'] : $start_time ?>
+    "><!-- <php echo $start_time;?> -->
   </div>
 </div>
 <div class="form-group row">
@@ -191,34 +193,30 @@
 </div>
 
 <input type="submit" class="btn btn-primary" value="Submit">
-</form>
-</div>
 <?php 
 
 
 $username_id = $_SESSION['login_user'];
-echo $username_id;
-$reservation_id = $_SESSION['reservation_id'];
-echo "Reservation id: ".$reservation_id;
+
+
+
       $room_id = $_SESSION['reservation_room'];
       $reservation_date = $_SESSION['reservation_date'];
-    echo "end time: ".$end_time;
-    echo date("H:i A", strtotime($end_time));
+    
 
 //Check if there is a user logged in
 if(!isset($_SESSION['login_user'])){
     header("location:login.php");
  }
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-        echo "$username_id";
-        echo "room: ".$_POST['reservation_id'];
-        echo $reservation_date;
-	echo "yes";
+if($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['start_time'])){
+  
   $room = $_REQUEST['room_name'];
   $date = $_REQUEST['date'];
   $start_time = $_REQUEST['start_time'];
   $end_time = $_REQUEST['end_time'];
+  $reservation_id = $_REQUEST['reservation_id'];
+  $reservation_id = $_POST['reservation_id_'];
   //$var = "20/04/2012";
 //echo date("Y-m-d", strtotime($var) )
   $start_time = date("H:i:s", strtotime($start_time));
@@ -228,38 +226,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
  $sql = "SELECT * FROM User WHERE UserID='$username_id';";
  $result = $conn->query($sql);
+ ?>
+ <div class="form-group row">
+  <?php
  if ($result->num_rows > 0){
-	  $sql = "SELECT * FROM Reservation WHERE RoomID='$room' AND ReservationDate='$date_reformatted' AND StartTime='$start_time' OR (StartTime < '$end_time' AND StartTime > '$start_time')  OR (EndTime > '$start_time' AND EndTime < '$end_time') OR (StartTime <'$start_time' AND EndTime > '$end_time');"; 
-	  $sql = "SELECT * FROM Reservation WHERE RoomID='$room' AND ReservationDate='$date_reformatted' AND 
-StartTime BETWEEN $start_time AND $end_time OR 
-EndTime BETWEEN $start_time AND $end_time OR
-$start_time BETWEEN StartTime AND EndTime;";
-	  $result = $conn->query($sql);
-		if($result->num_rows > 0){
-			?>
-			<div class="alert alert-danger"> There is already a reservation during this time </div>
-			<?php
-			echo "There is already a reservation during this time: ".$date_reformatted;
-			
-				  	
-		}else{			
-$sql="UPDATE Reservation SET RoomID='$room', ReservationDate='$date_reformatted', StartTime='$start_time', EndTime='$end_time' WHERE UserID='$username_id' and RoomID='$room_id' and ReservationDate='$reservation_date';";
-			$result = $conn->query($sql);
+    /*$sql = "SELECT * FROM Reservation WHERE RoomID='$room' AND ReservationDate='$date_reformatted' AND StartTime='$start_time' OR (StartTime < '$end_time' AND StartTime > '$start_time')  OR (EndTime > '$start_time' AND EndTime < '$end_time') OR (StartTime <'$start_time' AND EndTime > '$end_time');"; */
+    $sql = "SELECT * FROM Reservation WHERE RoomID='$room' AND ReservationDate='$date_reformatted' AND ReservationID != '$reservation_id' AND
+(StartTime BETWEEN '$start_time' AND '$end_time' OR 
+EndTime BETWEEN '$start_time' AND '$end_time' OR
+'$start_time' BETWEEN StartTime AND EndTime OR StartTime='$start_time' OR EndTime='$end_time');";
+echo $sql;
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+      ?>
+      <div class="form-control alert alert-danger"> <strong> Uh oh! </strong> There is already a reservation during this time </div>
+      <?php
+      
+      
+            
+    }else{      ?>
+      <div class="form-control alert alert-success"><strong> Congrats! </strong> Reservation successfully updated! </div>
+      <?php
+$sql="UPDATE Reservation SET RoomID='$room', ReservationDate='$date_reformatted', StartTime='$start_time', EndTime='$end_time' WHERE ReservationID='$reservation_id';";
+      echo $sql;
+      $result = $conn->query($sql);
 
-			header("location: room_reservation.php");
-		}
-		$conn->close();
+$conn->close();
+      header("location:room_reservation.php");
+    }
+    
 }
-else{
-	?> 
-	<div class="col-10">
-	<div class="alert alert-danger" role="alert" >
-		<strong> Oh no! </strong>You inputted an invalid username.
-		</div>
-		</div><?php
+
 }
-}
-?></section>
+?>
+</div>
+</form>
+</div>
+</section>
 
 </body>
 

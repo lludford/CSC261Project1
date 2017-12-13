@@ -24,6 +24,7 @@
             /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
             background-size: cover;
         }
         nav{
@@ -164,20 +165,25 @@
                 <td>
                     <form method='post'>
                         <input type="submit" name="delete" value="Delete">    
+                        <input hidden value= "<?php echo $row['ReservationID'];?>" name="reservation_id">
                     </form>
                 </td>
 		<?php
 	            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edit'])){
-                    ?> <script> alert("hi");</script><?php
+                    ?> <?php
                         $_SESSION['reservation_id'] =10;
                         $_SESSION['reservation_room'] = $room_id;
                         $_SESSION['reservation_date'] = $row['ReservationDate'];
                     }
                     else if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete'])){
+                        $reservation_id = $_REQUEST['reservation_id'];
 
-                        $sql_delete="DELETE FROM Reservation WHERE RoomID='$room_id' AND UserID='$user' AND ReservationDate='$row[ReservationDate]'";
+                        $sql_delete="DELETE FROM Reservation WHERE ReservationID='$reservation_id';";
 
                         $result = $conn->query($sql_delete);
+                        $conn->close();
+                        header('Location:login.php');
+                        exit;
                 }
 		?>
             </tr>
@@ -193,7 +199,7 @@
             </table>
 
         <?php
-        $conn->close();
+        //$conn->close();
         ?>
 </td>
     </body>
