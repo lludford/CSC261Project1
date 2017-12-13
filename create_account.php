@@ -108,7 +108,8 @@
             border-top: 3px solid #fff;
             width: 80px;
         }
-        section {
+        #create_account_id {
+            margin-top: 2.5%;
             display: inline-block;
             text-align: center;
             color: white;
@@ -159,7 +160,7 @@
                 $dptmt = $_REQUEST['dptmt'];
                 $year = $_REQUEST['class_year'];
                 require_once('db_setup.php');
-                $sql = "USE lyang29";
+                $sql = "USE lludford";
 
                 if ($conn->query($sql) === TRUE) {
 
@@ -169,8 +170,8 @@
             ?>
 
 
-            <section>
-
+<!--             <section> -->
+<div class="container" id="create_account_id">
                 <h1> Create an Account </h1>
                 
                 <hr class="hr-light mt-4 wow fadeInDown" color="#ffffff">
@@ -264,8 +265,8 @@
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div id="class_year_div" hidden>
+                <div class="form-row" id="class_year_div" hidden>
+                    <!-- <div id="class_year_div" hidden> -->
                         <label for="class_year" class="col-2 col-form-label">Class Year</label>
                         <select required id="class_year" name="class_year" class="form-control">
                             <option selected value="0"> Choose... </option>
@@ -276,7 +277,7 @@
                             <option value="5">Graduate Student</option>
                             <option value="6">Take 5</option>
                         </select>
-                    </div>
+                    <!-- </div> -->
                 </div>
 
 
@@ -313,8 +314,8 @@
                 
                 <input type="submit" class="btn btn-primary" value="Submit">
                 </form>  
-
-            </section>
+            </div>
+<!--             </section> -->
         </div>
     </body>
   

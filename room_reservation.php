@@ -10,7 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 <style>
         body, html { 
             height: 100%; 
@@ -52,7 +53,15 @@
         
         </style>
 
-
+<script>
+    function editReservation(reservationID){
+        <?php 
+            $_SESSION['reservation_id'] = reservationID;
+            
+        ?>
+        
+    }
+</script>
 </head>
 <body>
 
@@ -85,7 +94,7 @@
 
         <?php
             require_once('db_setup.php');
-            $sql = "USE lyang29;";
+            $sql = "USE lludford;";
             if ($conn->query($sql) === TRUE) {
             // echo "using Database tbiswas2_company";
             } else {
@@ -98,7 +107,7 @@
                 header("location:login.php");
              }
      		
-		 if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edit'])){
+		 /*if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edit'])){
                 	echo "no";
 			echo "$room_id";     
                         $_SESSION['reservation_room'] = $room_id;
@@ -110,7 +119,7 @@
                         $sql_delete="DELETE FROM Reservation WHERE RoomID='$room_id' AND UserID='$user' AND ReservationDate='$row[ReservationDate]'";
                 
                         $result = $conn->query($sql_delete);
-                }
+                }*/
 	      // Query:
             $sql = "SELECT * FROM Reservation where UserID = '$user'";
             $result = $conn->query($sql);
@@ -147,8 +156,9 @@
                 <td><font color="ffffff"><?php echo $row['StartTime']?></font></td>  
                 <td><font color="ffffff"><?php echo $row['EndTime']?></font></td>
                 <td>
-                    <form action="edit_reservation.php" method='post'>
-                        <input type="submit" name="edit" value="Edit">    
+                    <form action="edit_reservation.php?" method='post'>
+                        <input type="submit"onclick="editReservation('<?php echo $row['ReservationID'];?>')" name="edit" value="Edit">    
+                        <input hidden value="<?php echo $row['ReservationID'];?>" name="reservation_id">
                     </form>
                 </td>
                 <td>
@@ -158,6 +168,8 @@
                 </td>
 		<?php
 	            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edit'])){
+                    ?> <script> alert("hi");</script><?php
+                        $_SESSION['reservation_id'] =10;
                         $_SESSION['reservation_room'] = $room_id;
                         $_SESSION['reservation_date'] = $row['ReservationDate'];
                     }

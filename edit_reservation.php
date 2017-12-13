@@ -115,25 +115,44 @@
      <div class="col-10" id="class_year_div" >
     
       <select required id="room_name" name="room_name" class="form-control">
-        <option selected value="0"> Choose... </option>
+        <option  value="0"> Choose... </option>
         <?php
   
   
-  
+  session_start();
         	require_once('db_setup.php');
-			  $sql = "USE lyang29;";
-
+			  $sql = "USE lludford;";
+        $reservation_id = $_POST['reservation_id'];
 			  if ($conn->query($sql) === TRUE) {
 			     // echo "using Database tbiswas2_company";
 			  } else {
 			     echo "Error using  database: " . $conn->error;
 			  }
+
+        $sql = "SELECT * FROM Reservation WHERE ReservationID = '$reservation_id';";
+        $result = $conn->query($sql);
+        $roomid = 0;
+        if($result->num_rows > 0){
+          echo "in if-statement";
+          while($row = $result->fetch_assoc()){
+            $roomid = $row['RoomID'];
+            $start_time = $row['StartTime'];
+            $end_time = $row['EndTime'];
+            $date = $row['ReservationDate'];
+
+          }
+        }
 			  $sql = "SELECT * FROM Room;";
 			  $result = $conn->query($sql);
 			  if($result->num_rows > 0){
 			  	while($row = $result->fetch_assoc()){
 			  		?>
-			  		<option value="<?php echo $row['RoomID'] ?>"> 
+			  		<option value="<?php echo $row['RoomID'];?>
+             "<?php if ($row['RoomID'] == $roomid) {?>
+              selected <?php
+            }
+            
+            ?>> 
 			  			<?php $roomname = $row['Building'].' '.$row['Number'];
 			  			echo $roomname;?> </option>
 			  		<?php
@@ -148,22 +167,21 @@
 <div class="form-group row">
   <label for="date" class="col-2 col-form-label" >Date</label>
   <div class="col-10">
-    <input required class="form-control" type="date" name="date" id="date" >
+    <input required class="form-control" type="date" name="date" id="date" value="<?php echo $date;?>" >
   </div>
 </div>
 
 <div class="form-group row">
-  <label for="start_time" class="col-2 col-form-label">Start Time      <?php   echo "$username_id";
-        echo "$room_id";
-        echo "$reservation_date";?></label>
+  <label for="start_time" class="col-2 col-form-label">Start Time      </label>
   <div class="col-10">
-    <input required class="form-control" name="start_time" type="time" id="start_time">
+    <input required class="form-control" name="start_time" type="time" id="start_time" value="<?php echo $start_time;?>">
   </div>
 </div>
 <div class="form-group row">
   <label for="end_time" class="col-2 col-form-label">End Time</label>
   <div class="col-10">
-    <input required class="form-control" name="end_time" type="time"  id="end_time">
+    <input required class="form-control" name="end_time" type="time"  id="end_time" value="<?php 
+    echo $end_time;?>">
   </div>
 </div>
 
@@ -172,10 +190,15 @@
 </div>
 <?php 
 
-session_start();
+
 $username_id = $_SESSION['login_user'];
+echo $username_id;
+$reservation_id = $_SESSION['reservation_id'];
+echo "Reservation id: ".$reservation_id;
       $room_id = $_SESSION['reservation_room'];
       $reservation_date = $_SESSION['reservation_date'];
+    echo "end time: ".$end_time;
+    echo date("H:i A", strtotime($end_time));
 
 //Check if there is a user logged in
 if(!isset($_SESSION['login_user'])){
@@ -184,8 +207,8 @@ if(!isset($_SESSION['login_user'])){
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo "$username_id";
-        echo "$_SESSION[reservation_room]";
-        echo "$reservation_date";
+        echo "room: ".$_POST['reservation_id'];
+        echo $reservation_date;
 	echo "yes";
   $room = $_REQUEST['room_name'];
   $date = $_REQUEST['date'];
