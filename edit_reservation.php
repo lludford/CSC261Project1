@@ -128,7 +128,12 @@
 			  } else {
 			     echo "Error using  database: " . $conn->error;
 			  }
-
+        
+            $user = $_SESSION['login_user'];
+            //Check if there is a user logged in
+            if(!isset($_SESSION['login_user'])){
+                header("location:login.php");
+             }
         $sql = "SELECT * FROM Reservation WHERE ReservationID = '$reservation_id';";
         $result = $conn->query($sql);
         $roomid = 0;
