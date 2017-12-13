@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <?php
     require_once('db_setup.php');
-    $sql = "USE lludford;";
+    $sql = "USE lyang29;";
     if ($conn->query($sql) === TRUE) {
        // echo "using Database lyang29_users";
     } else {
@@ -18,15 +18,12 @@
     
         $username=addslashes($_POST['username']);
         $password=addslashes($_POST['password']);
-
         $sql="SELECT * FROM User WHERE UserID='$username' and Password='$password'";
-
     $result = $conn->query($sql);
-
     if($result->num_rows==1)
         {
             $_SESSION['login_user']=$username;
-            header("location: show_reservations.php");
+            header("location: room_reservation.php");
     }
         else
         {
@@ -36,7 +33,6 @@
             
         }
     }
-
 ?>
 
 <html>
@@ -49,14 +45,11 @@
     .bg {
      /* The image used */
         background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');
-
         height: 100%;
-
         /* Center and scale the image nicely */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-
     }
     h1 {
         letter-spacing: 8px;
@@ -65,7 +58,6 @@
         border-top: 3px solid #fff;
         width: 80px;
     }
-
     section {
         display: inline-block;
         text-align: center;
@@ -78,7 +70,6 @@
         margin-right: -50%;
         transform: translate(-50%, -50%) 
     }
-
     </style>
 <head/>
 <body>
@@ -108,4 +99,3 @@
 <?php
 $conn->close();
 ?>
-

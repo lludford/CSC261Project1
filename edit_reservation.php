@@ -94,7 +94,7 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       
       <li class="nav-item">
-        <a class="nav-link" href="room_reservation.php">View Your Reservations </a>
+        <a class="nav-link" href="room_reservation.php">View Your Reservations</a>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="logout.php">Log Out</a>
@@ -106,7 +106,7 @@
 	
 
 	<section>	
-<h1> Make A Reservation</h1>
+<h1> Edit Your Reservation</h1>
 <hr class="hr-light mt-4 wow fadeInDown" color="#ffffff">
 	<form id="make_reservation_form" method="post">
 
@@ -153,7 +153,9 @@
 </div>
 
 <div class="form-group row">
-  <label for="start_time" class="col-2 col-form-label">Start Time</label>
+  <label for="start_time" class="col-2 col-form-label">Start Time      <?php   echo "$username_id";
+        echo "$room_id";
+        echo "$reservation_date";?></label>
   <div class="col-10">
     <input required class="form-control" name="start_time" type="time" id="start_time">
   </div>
@@ -172,12 +174,19 @@
 
 session_start();
 $username_id = $_SESSION['login_user'];
+      $room_id = $_SESSION['reservation_room'];
+      $reservation_date = $_SESSION['reservation_date'];
+
 //Check if there is a user logged in
 if(!isset($_SESSION['login_user'])){
     header("location:login.php");
  }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+        echo "$username_id";
+        echo "$_SESSION[reservation_room]";
+        echo "$reservation_date";
+	echo "yes";
   $room = $_REQUEST['room_name'];
   $date = $_REQUEST['date'];
   $start_time = $_REQUEST['start_time'];
@@ -205,13 +214,11 @@ $start_time BETWEEN StartTime AND EndTime;";
 			echo "There is already a reservation during this time: ".$date_reformatted;
 			
 				  	
-		}else{
-			
-			
-			$sql="INSERT INTO Reservation (UserID, RoomID, ReservationDate, StartTime, EndTime) VALUES('$username_id', '$room', '$date_reformatted', '$start_time', '$end_time');";
+		}else{			
+$sql="UPDATE Reservation SET RoomID='$room', ReservationDate='$date_reformatted', StartTime='$start_time', EndTime='$end_time' WHERE UserID='$username_id' and RoomID='$room_id' and ReservationDate='$reservation_date';";
 			$result = $conn->query($sql);
 
-			header("location: room_reservations.php");
+			header("location: room_reservation.php");
 		}
 		$conn->close();
 }
