@@ -248,7 +248,7 @@ EndTime BETWEEN '$start_time' AND '$end_time' OR
 	 
 	<?php echo '<script type="text/javascript">
            window.location = "room_reservation.php"
-      </script>' ?>
+      </script>'; ?>
 	 
       <div class="form-control alert alert-success"><strong> Congrats! </strong> Reservation successfully updated! </div>
       <?php
