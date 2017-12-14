@@ -246,9 +246,7 @@ EndTime BETWEEN '$start_time' AND '$end_time' OR
             
     }else{      ?>
 	 
-	<?php echo '<script type="text/javascript">
-           window.location = "room_reservation.php"
-      </script>'; ?>
+	
 	 
       <div class="form-control alert alert-success"><strong> Congrats! </strong> Reservation successfully updated! </div>
       <?php
@@ -257,7 +255,9 @@ $sql="UPDATE Reservation SET RoomID='$room', ReservationDate='$date_reformatted'
       $result = $conn->query($sql);
 
 $conn->close();
-       
+       echo '<script type="text/javascript">
+           window.location = "room_reservation.php"
+      </script>'; 
 
     }
     
