@@ -252,7 +252,10 @@ $sql="UPDATE Reservation SET RoomID='$room', ReservationDate='$date_reformatted'
       $result = $conn->query($sql);
 
 $conn->close();
-      header("location:room_reservation.php");
+       
+	echo '<script type="text/javascript">
+           window.location = "room_reservation.php"
+      </script>'
     }
     
 }
